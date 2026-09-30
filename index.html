@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payline — Corporate Email Signature Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --card-border: #262626;
+      --text: #ededed;
+      --text-muted: #888888;
+      --accent: #ffffff;
+      --accent-black: #000000;
+      --input-bg: #1a1a1a;
+      --input-border: #333333;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      background: #ffffff;
+      color: #000000;
+      font-weight: 900;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      letter-spacing: -1px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .badge-google {
+      background: #1f1f1f;
+      border: 1px solid #333333;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #cccccc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #34a853;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .presets {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .preset-btn {
+      background: #202020;
+      border: 1px solid #333333;
+      color: #bbbbbb;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-btn:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #ffffff;
+    }
+
+    .preview-box {
+      background: #ffffff;
+      color: #000000;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      min-height: 320px;
+      overflow-x: auto;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .btn-primary:hover {
+      background: #e0e0e0;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #222222;
+      color: #ffffff;
+      border: 1px solid #333333;
+    }
+
+    .btn-secondary:hover {
+      background: #2a2a2a;
+      border-color: #444444;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #ffffff;
+      color: #000000;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .instructions-card {
+      margin-top: 24px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #aaaaaa;
+      border-top: 1px solid var(--card-border);
+      padding-top: 20px;
+    }
+
+    .instructions-card .inst-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .instructions-card ol {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .instructions-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #191919;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #282828;
+    }
+
+    .instructions-card .step-num {
+      background: #ffffff;
+      color: #000000;
+      font-weight: 800;
+      font-size: 11px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .instructions-card .step-text {
+      flex: 1;
+    }
+
+    .instructions-card strong {
+      color: #ffffff;
+    }
+
+    .instructions-card kbd {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-mark">⚡</div>
+        <div class="brand-title">Payline Signature Builder</div>
+      </div>
+      <div class="badge-google">
+        <div class="badge-dot"></div>
+        Google Workspace Ready
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Input Controls -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Employee Details</div>
+          <span style="font-size: 12px; color: var(--text-muted);">Quick Presets:</span>
+        </div>
+
+        <div class="presets">
+          <button class="preset-btn" onclick="applyPreset('legal')">⚖️ Legal</button>
+          <button class="preset-btn" onclick="applyPreset('eng')">💻 Engineering</button>
+          <button class="preset-btn" onclick="applyPreset('exec')">👑 Executive</button>
+          <button class="preset-btn" onclick="applyPreset('sales')">💼 Sales</button>
+        </div>
+
+        <div class="form-group">
+          <label for="signOff">Sign-off / Greeting</label>
+          <input type="text" id="signOff" value="Kind regards," oninput="renderSignature()" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" value="Alex Vance" oninput="renderSignature()" />
+          </div>
+          <div class="form-group">
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" value="Legal Counsel" oninput="renderSignature()" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Work Email</label>
+            <input type="email" id="email" value="alex@payline.co" oninput="renderSignature()" />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" value="+234 (0) 1 234 5678" oninput="renderSignature()" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Headquarters Address</label>
+          <input type="text" id="address" value="37 Ologun Agbaje Street, Victoria Island, Lagos, Nigeria" oninput="renderSignature()" />
+        </div>
+
+        <div class="form-group">
+          <label for="website">Company Website URL</label>
+          <input type="text" id="website" value="https://payline.co" oninput="renderSignature()" />
+        </div>
+
+        <div class="form-group">
+          <label for="disclaimer">Legal Disclaimer</label>
+          <textarea id="disclaimer" rows="3" oninput="renderSignature()">This transmission is confidential and intended solely for the recipient named above. If received in error, please notify the sender immediately and delete this email.</textarea>
+        </div>
+      </div>
+
+      <!-- Live Preview & Export -->
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Live Preview</div>
+            <span style="font-size: 12px; color: var(--text-muted);">Rendered for Gmail / Outlook</span>
+          </div>
+
+          <div class="preview-box" id="signatureContainer">
+            <!-- Rendered Signature HTML dynamically inserted here -->
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" onclick="copyFormattedSignature()">
+              📋 Copy for Gmail / Web
+            </button>
+            <button class="btn btn-secondary" onclick="copyHtmlSource()">
+              &lt;/&gt; Copy HTML Source
+            </button>
+          </div>
+
+          <div class="instructions-card">
+            <div class="inst-title">How to add in Gmail:</div>
+            <ol>
+              <li>
+                <span class="step-num">1</span>
+                <div class="step-text">
+                  Click <strong>"Copy for Gmail / Web"</strong> above.
+                </div>
+              </li>
+              <li>
+                <span class="step-num">2</span>
+                <div class="step-text">
+                  In Gmail, open <strong>Settings (Gear icon)</strong>, click <strong>See all settings</strong>, and scroll to <strong>Signature</strong>.
+                </div>
+              </li>
+              <li>
+                <span class="step-num">3</span>
+                <div class="step-text">
+                  Click <strong>+ Create new</strong>, paste (<kbd>Cmd</kbd> or <kbd>Ctrl</kbd> + <kbd>V</kbd>) into the signature box, and click <strong>Save Changes</strong>.
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <script>
+    const presets = {
+      legal: {
+        name: 'Alex Vance',
+        title: 'Legal Counsel',
+        email: 'legal@payline.co',
+        phone: '+234 (0) 1 234 5678'
+      },
+      eng: {
+        name: 'Chidi Okafor',
+        title: 'Lead Software Engineer',
+        email: 'chidi@payline.co',
+        phone: '+234 (0) 802 345 6789'
+      },
+      exec: {
+        name: 'Tunde Adeleke',
+        title: 'Chief Executive Officer',
+        email: 'tunde@payline.co',
+        phone: '+234 (0) 803 111 2233'
+      },
+      sales: {
+        name: 'Amara Nwosu',
+        title: 'Head of Business Development',
+        email: 'amara@payline.co',
+        phone: '+234 (0) 805 999 8877'
+      }
+    };
+
+    function applyPreset(key) {
+      const p = presets[key];
+      if (!p) return;
+      document.getElementById('fullName').value = p.name;
+      document.getElementById('jobTitle').value = p.title;
+      document.getElementById('email').value = p.email;
+      document.getElementById('phone').value = p.phone;
+      renderSignature();
+    }
+
+    function generateSignatureHtml() {
+      const signOff = document.getElementById('signOff') ? document.getElementById('signOff').value : 'Kind regards,';
+      const name = document.getElementById('fullName').value || 'Full Name';
+      const title = document.getElementById('jobTitle').value || 'Job Title';
+      const email = document.getElementById('email').value || 'email@payline.co';
+      const phone = document.getElementById('phone').value || '';
+      const address = document.getElementById('address').value || '37 Ologun Agbaje Street, Victoria Island, Lagos, Nigeria';
+      const website = document.getElementById('website').value || 'https://payline.co';
+      const disclaimer = document.getElementById('disclaimer').value || '';
+
+      const websiteDisplay = website.replace(/^https?:\/\//, '');
+
+      return `
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111111; font-size: 14px; line-height: 1.5; max-width: 500px;">
+  ${signOff.trim() ? `
+  <tr>
+    <td style="padding-bottom: 12px; color: #444444; font-size: 13px;">
+      ${signOff}
+    </td>
+  </tr>` : ''}
+
+  <!-- Payline Brandmark -->
+  <tr>
+    <td style="padding-bottom: 14px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="background-color: #000000; color: #ffffff; padding: 4px 10px; font-size: 14px; font-weight: 900; letter-spacing: 1px; border-radius: 4px; font-family: 'Arial Black', sans-serif;">
+            //
+          </td>
+          <td style="padding-left: 8px; font-size: 24px; font-weight: 800; color: #000000; letter-spacing: -0.5px;">
+            Payline
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Dynamic Employee Details -->
+  <tr>
+    <td style="padding-bottom: 10px;">
+      <div style="font-size: 15px; font-weight: 700; color: #000000; text-transform: capitalize;">${name}</div>
+      <div style="font-size: 13px; color: #555555; font-weight: 500;">${title}</div>
+    </td>
+  </tr>
+
+  <!-- Contact Info -->
+  <tr>
+    <td style="padding-bottom: 8px; font-size: 13px;">
+      <a href="mailto:${email}" style="color: #000000; font-weight: 600; text-decoration: none;">${email}</a>
+      ${phone ? `<span style="color: #cccccc; padding: 0 6px;">|</span><span style="color: #444444;">${phone}</span>` : ''}
+    </td>
+  </tr>
+
+  <!-- Office Address -->
+  <tr>
+    <td style="padding-bottom: 14px; color: #666666; font-size: 12px; line-height: 1.4;">
+      ${address}
+    </td>
+  </tr>
+
+  <!-- Minimalist Black & White Social / Web Links -->
+  <tr>
+    <td style="padding-bottom: 16px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="padding-right: 6px;">
+            <a href="https://www.linkedin.com/company/paylinefintech" target="_blank" style="display: inline-block; width: 28px; height: 28px; border-radius: 50%; background-color: #000000; text-align: center; line-height: 28px; color: #ffffff; text-decoration: none; font-size: 11px; font-weight: bold;">in</a>
+          </td>
+          <td style="padding-right: 6px;">
+            <a href="https://x.com/paylinefintech" target="_blank" style="display: inline-block; width: 28px; height: 28px; border-radius: 50%; background-color: #000000; text-align: center; line-height: 28px; color: #ffffff; text-decoration: none; font-size: 11px; font-weight: bold;">𝕏</a>
+          </td>
+          <td>
+            <a href="${website}" target="_blank" style="display: inline-block; height: 28px; padding: 0 10px; border-radius: 14px; background-color: #f3f3f3; text-align: center; line-height: 28px; color: #000000; text-decoration: none; font-size: 11px; font-weight: 600;">${websiteDisplay} ↗</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Legal Confidentiality Disclaimer -->
+  ${disclaimer ? `
+  <tr>
+    <td style="border-top: 1px solid #eeeeee; padding-top: 10px; font-size: 10px; color: #888888; line-height: 1.4;">
+      ${disclaimer}
+    </td>
+  </tr>` : ''}
+</table>`.trim();
+    }
+
+    function renderSignature() {
+      document.getElementById('signatureContainer').innerHTML = generateSignatureHtml();
+    }
+
+    async function copyFormattedSignature() {
+      const htmlContent = generateSignatureHtml();
+      try {
+        const blobInput = new Blob([htmlContent], { type: 'text/html' });
+        const plainInput = new Blob([document.getElementById('signatureContainer').innerText], { type: 'text/plain' });
+        const clipboardItem = new ClipboardItem({
+          'text/html': blobInput,
+          'text/plain': plainInput
+        });
+        await navigator.clipboard.write([clipboardItem]);
+        showToast('Formatted signature copied! Paste directly into Gmail.');
+      } catch (err) {
+        // Fallback
+        const range = document.createRange();
+        range.selectNode(document.getElementById('signatureContainer'));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        showToast('Copied formatted signature!');
+      }
+    }
+
+    async function copyHtmlSource() {
+      const htmlContent = generateSignatureHtml();
+      await navigator.clipboard.writeText(htmlContent);
+      showToast('Raw HTML code copied!');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // Initial render
+    renderSignature();
+  </script>
+</body>
+</html>
